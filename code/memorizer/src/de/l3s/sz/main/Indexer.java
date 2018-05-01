@@ -91,7 +91,7 @@ public class Indexer {
 		}
 		//idx.print(0, 5);
 
-		List<List<List<String>>> res = idx.getText(829023);
+		List<List<List<String>>> res = idx.getText("17696435216");
 
 		List<String> sentences = idx.collectSentences(res);
 
@@ -143,6 +143,12 @@ public class Indexer {
 	public List<List<List<String>>> getText(int num) {
 
 		String numstr = "" + num;
+
+		return getText(numstr);
+	}
+	public List<List<List<String>>> getText(String numstr) {
+
+	
 
 		List<List<String>> possibilities = bs.split(numstr);
 
