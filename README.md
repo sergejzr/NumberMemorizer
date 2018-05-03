@@ -3,6 +3,8 @@ Converts numbers into unique words/sentences and helps this way to memorize long
 
 There are a few recommended approaches ho to memorize large numbers (checkout links [1,2,3]). These algorithms helps to use so called "Mnemonic Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
 
+For example, the number 81459161 turnes to ""federal budget". Much easier to memorize, isn't it?
+
 Simple usage of the given library, first init the mapper (running demo is in de.l3s.sz.main.MemorizerDemo):
 
     //create an indexer using specific number - letter mapping as follows
