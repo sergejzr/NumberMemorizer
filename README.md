@@ -1,7 +1,7 @@
 # NumberMemorizer
-Converts numbers into unique words/sentences and helps this way to memorize long numbers (Major System or Consonant System).
+Converts numbers into unique words/sentences and helps this way to memorize long numbers (Mnemonic Major System or Consonant System).
 
-There are a few recommended approaches ho to memorize large numbers (checkout links [1,2]). These algorithms helps to use so called "Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
+There are a few recommended approaches ho to memorize large numbers (checkout links [1,2,3]). These algorithms helps to use so called "Mnemonic Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
 
 Simple usage of the given library, first init the mapper (running demo is in de.l3s.sz.main.MemorizerDemo):
 
@@ -47,6 +47,7 @@ Than iterate over possible word combinations*
 
 
 Some references wth details about large numbers memorisation:
-[1] https://www.quickanddirtytips.com/education/math/how-to-memorize-numbers-part-1
-[2] https://www.wikihow.com/Memorize-Numbers
+[1] https://en.wikipedia.org/wiki/Mnemonic_major_system
+[2] https://www.quickanddirtytips.com/education/math/how-to-memorize-numbers-part-1
+[3] https://www.wikihow.com/Memorize-Numbers
 
