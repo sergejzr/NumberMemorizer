@@ -19,7 +19,7 @@ Simple usage of the given library, first init the mapper (running demo is in de.
 
 Than iterate over possible word combinations*
 
-    String num = "84957218383";
+    String num = "81459161";
     Iterator<Result> it = idx.result(num, true);
 		
 		while(it.hasNext())
