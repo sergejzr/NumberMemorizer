@@ -76,6 +76,7 @@ public class Indexer {
 
 	/**
 	 * Returns a list of words corresponding to given number
+	 * 
 	 * @param num
 	 * @return
 	 */
@@ -174,6 +175,9 @@ public class Indexer {
 	 */
 	public void save(File modelFile) throws IOException {
 
+		if (hashIndex.size() == 0) {
+			throw new IOException("no data added to model");
+		}
 		FileOutputStream fos = new FileOutputStream(modelFile);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(hashIndex);
@@ -190,9 +194,9 @@ public class Indexer {
 	}
 
 	private String makekey(String s1, String s2) {
-		if (s1.compareTo(s2) > 0)
+	//	if (s1.compareTo(s2) > 0)
 			return s1 + "_" + s2;
-		return s2 + "_" + s1;
+		//return s2 + "_" + s1;
 	}
 
 	public void addText(List<String> document) {
@@ -203,7 +207,7 @@ public class Indexer {
 		for (String w : document) {
 
 			if (oldw != null) {
-				String key = makekey(w, oldw);
+				String key = makekey(oldw,w);
 				Integer cnt = cooccurence.get(key);
 				if (cnt == null) {
 					cnt = 0;

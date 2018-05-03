@@ -111,7 +111,7 @@ public class ResultIterator implements Iterator<Result> {
 					Collections.shuffle(randlist);
 					for (String s : randlist) {
 
-						Integer score = indexer.getCoocurrentcScore(s, prev);
+						Integer score = indexer.getCoocurrentcScore(prev,s);
 						if (score == null)
 							score = 0;
 
@@ -269,7 +269,7 @@ public class ResultIterator implements Iterator<Result> {
 						Collections.shuffle(randlist);
 						for (String s : randlist) {
 
-							Integer score = indexer.getCoocurrentcScore(s, prev);
+							Integer score = indexer.getCoocurrentcScore(prev,s);
 							if (score == null)
 								score = 0;
 

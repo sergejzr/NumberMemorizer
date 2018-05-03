@@ -21,14 +21,14 @@ public class MemorizerDemo {
 
 	public static void main(String[] args) {
 
-		Indexer idx = new Indexer(MEMOMAPPING.ENGLISH1);
+		Indexer idx = new Indexer(MEMOMAPPING.RUSSIAN1);
 
 		File modeldir = new File("models");
-		File model = new File(modeldir, "mapper_standard_reuters.ser");
-		loadModelIfExist(idx, model, new File("/home/zerr/tweetsdl/reuters/"));
+		File model = new File(modeldir, "mapper_standard_libru.ser");
+		loadModelIfExist(idx, model, new File("/home/zerr/russtext/"));
 
 
-		String num = "81459161";
+		String num = "5682";
 		Iterator<Result> it = idx.result(num, true);
 
 		int top = 10;
