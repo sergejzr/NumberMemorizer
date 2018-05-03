@@ -75,7 +75,7 @@ public class ResultIterator implements Iterator<Result> {
 
 			for (String s : possibility) {
 				HashSet<String> stack = new HashSet<>();
-				HashSet<String> alternatives = indexer.getString(s);
+				HashSet<String> alternatives = indexer.getStringFromNumber(s);
 				if (alternatives == null || alternatives.size() == 0)
 					continue nextpossibility;
 				stack.addAll(alternatives);
@@ -120,10 +120,11 @@ public class ResultIterator implements Iterator<Result> {
 							winner = s;
 						}
 					}
+
+					connectivity += maxscore;
 					if (connectivity > 0) {
 						cscore += 1. / connectivity;
 					}
-					connectivity += maxscore;
 					used.get(i).remove(winner);
 					postfix.add(winner);
 					prev = winner;
@@ -224,7 +225,7 @@ public class ResultIterator implements Iterator<Result> {
 
 			for (String s : possibility) {
 				HashSet<String> stack = new HashSet<>();
-				HashSet<String> alternatives = indexer.getString(s);
+				HashSet<String> alternatives = indexer.getStringFromNumber(s);
 				if (alternatives == null || alternatives.size() == 0)
 					continue nextpossibility;
 				stack.addAll(alternatives);
