@@ -3,7 +3,7 @@ Converts numbers into unique words/sentences and helps this way to memorize long
 
 There are a few recommended approaches ho to memorize large numbers (checkout links [1,2]). These algorithms helps to use so called "Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
 
-Simple usage of the given library, first init the mapper:
+Simple usage of the given library, first init the mapper (running demo is in de.l3s.sz.main.MemorizerDemo):
 
     //create an indexer using specific number - letter mapping as follows
     Indexer idx=new Indexer("0:zsc,1:dt,2:n,3:m,4:r,5:l,6:jg,7:kq,8:fv,9:bp");
