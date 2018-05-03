@@ -26,24 +26,24 @@ Than iterate over possible word combinations*
 			System.out.println(r.getScore()+"\t"+r.getSplit()+"\t"+r.getSentence());
 		}
 
-* We can not build and evaluate all possible combination of possible words in the lists. In the full mode (idx.result(num, true)) we instead get most promising combinations first and print othe rpossibilities with -- as word placeholders. Example:
-
-    idx.result("81459161", true);
+ * We can not build and evaluate all possible combination of possible words in the lists. In the full mode (idx.result(num, true)) we instead get most promising combinations first and print othe rpossibilities with -- as word placeholders. Example:
+	
+		//
+    	idx.result("81459161", true);
+    	//higly scored results first
+    	90.0	[8145, 9161]	federal budget
+    	90.0	[8145, 9161]	federal budget
+    	1.5	[814, 59, 161]	after libya thought
+    	0.0	[814, 59, 161]	footwear leap hedged
+    	0.0	[814, 59, 161]	feature lab digit
+    	0.0	[814, 59, 161]	feeder help edged
+    	0.0	[814, 59, 161]	future lap tight
+    	0.0	[814, 59, 161]	father lip tgt
     
-    //higly scored results first
-    90.0	[8145, 9161]	federal budget
-    90.0	[8145, 9161]	federal budget
-    1.5	[814, 59, 161]	after libya thought
-    0.0	[814, 59, 161]	footwear leap hedged
-    0.0	[814, 59, 161]	feature lab digit
-    0.0	[814, 59, 161]	feeder help edged
-    0.0	[814, 59, 161]	future lap tight
-    0.0	[814, 59, 161]	father lip tgt
-    
-    //rest with placeholders. -- can be replaces as any word in previous column with same splitting [814, 59, 161]
-    -1.0	[814, 59, 161]	--  alpha outweighed
-    -1.0	[814, 59, 161]	--  elpa  --
-    -1.0	[814, 59, 161]	--  lbo  -- 
+    	//rest with placeholders. -- can be replaces as any word in previous column with same splitting [814, 59, 161]
+    	-1.0	[814, 59, 161]	--  alpha outweighed
+    	-1.0	[814, 59, 161]	--  elpa  --
+    	-1.0	[814, 59, 161]	--  lbo  -- 
 
 
 Some references wth details about large numbers memorisation:
