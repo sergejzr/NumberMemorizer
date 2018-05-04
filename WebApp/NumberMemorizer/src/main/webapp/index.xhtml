@@ -15,18 +15,20 @@
 <h:form>
     <p:growl id="msgs" showDetail="true" />
  
-    <p:panel header="Settings" style="margin-bottom:10px;">
+    <p:panel id="setform" header="Settings" style="margin-bottom:10px;">
         <h:panelGrid columns="2" cellpadding="5">
             <p:outputLabel for="country" value="Mapper: " />
             <p:selectOneMenu id="country" value="#{mem.mappername}" style="width:150px"> 
-            <p:ajax listener="#{mem.updateSettings}"  />
+            <p:ajax listener="#{mem.updateSettings}"  update="setform"/>
                 <f:selectItems value="#{mem.indexers}" />
             </p:selectOneMenu>
             
             <p:outputLabel value="Filter, minimum document frequency" />
             <p:inputText id="mindf" value="#{mem.mindf}" style="width:75px" /> 
             <p:outputLabel value="Filter, minimum term frequency" />
-            <p:inputText id="minfreq" value="#{mem.minfreq}" style="width:75px" />    
+            <p:inputText id="minfreq" value="#{mem.minfreq}" style="width:75px" />   
+            <p:outputLabel value="Mapping:" />
+              <p:outputLabel value="#{mem.currentmapping}" />
         </h:panelGrid>
  
         <p:separator />

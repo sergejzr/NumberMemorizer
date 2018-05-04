@@ -35,8 +35,12 @@ public class Indexer {
 		this(MEMOMAPPING.ENGLISH1);
 	}
 
-	 HashMap<String, Integer> df = new HashMap<>();
-	 HashMap<String, Integer> freq = new HashMap<>();
+	public String getCurrentmapping() {
+		return currentmapping;
+	}
+
+	HashMap<String, Integer> df = new HashMap<>();
+	HashMap<String, Integer> freq = new HashMap<>();
 
 	private HashMap<String, Integer> cooccurence = new HashMap<>();
 
@@ -58,6 +62,12 @@ public class Indexer {
 
 	}
 
+	public HashMap<Character, Integer> getMapper() {
+		return mapper;
+	}
+
+	String currentmapping = null;
+
 	/**
 	 * Create Indexer with given personalized mapping. Standard mappings are in
 	 * the class MEMOMAPPING.
@@ -65,6 +75,7 @@ public class Indexer {
 	 * @param map
 	 */
 	public Indexer(String map) {
+		currentmapping = map;
 		String[] nums = map.split(",");
 		for (String num : nums) {
 			String pairstr[] = num.split(":");
@@ -150,9 +161,9 @@ public class Indexer {
 	public void read(File modelFile) throws IOException {
 		try {
 			FileInputStream fis = new FileInputStream(modelFile);
-			
+
 			read(fis);
-			
+
 			fis.close();
 
 		} catch (ClassNotFoundException c) {
@@ -189,9 +200,9 @@ public class Indexer {
 	}
 
 	private String makekey(String s1, String s2) {
-	//	if (s1.compareTo(s2) > 0)
-			return s1 + "_" + s2;
-		//return s2 + "_" + s1;
+		// if (s1.compareTo(s2) > 0)
+		return s1 + "_" + s2;
+		// return s2 + "_" + s1;
 	}
 
 	public void addText(List<String> document) {
@@ -202,7 +213,7 @@ public class Indexer {
 		for (String w : document) {
 
 			if (oldw != null) {
-				String key = makekey(oldw,w);
+				String key = makekey(oldw, w);
 				Integer cnt = cooccurence.get(key);
 				if (cnt == null) {
 					cnt = 0;
@@ -271,7 +282,7 @@ public class Indexer {
 	}
 
 	public void read(InputStream loader) throws IOException, ClassNotFoundException {
-		
+
 		ObjectInputStream ois = new ObjectInputStream(loader);
 		hashIndex = (HashMap<String, HashSet<String>>) ois.readObject();
 		mapper = (HashMap<Character, Integer>) ois.readObject();
@@ -281,6 +292,6 @@ public class Indexer {
 		freq = (HashMap<String, Integer>) ois.readObject();
 		allfreq = (Integer) ois.readObject();
 		ois.close();
-		
+
 	}
 }

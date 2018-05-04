@@ -26,9 +26,9 @@ public class ResultIterator implements Iterator<Result> {
 		this.bs = bs;
 		this.fullinfo = fullinfo;
 
-		dfcomparator=new MyComparator(indexer.df);
-		freqcomparator=new MyComparator(indexer.freq);
-		
+		dfcomparator = new MyComparator(indexer.df);
+		freqcomparator = new MyComparator(indexer.freq);
+
 		init();
 	}
 
@@ -68,7 +68,6 @@ public class ResultIterator implements Iterator<Result> {
 		return true;
 	}
 
-	
 	private void loadbatch() {
 
 		List<Result> ret = new ArrayList<>();
@@ -99,6 +98,8 @@ public class ResultIterator implements Iterator<Result> {
 			HashSet<String> start = used.get(max);
 			ArrayList<String> words = new ArrayList<>(start);
 
+			Collections.sort(words, freqcomparator);
+			Collections.sort(words, dfcomparator);
 			for (String curstr : words) {
 				ArrayList<String> prefix = new ArrayList<>();
 				ArrayList<String> postfix = new ArrayList<>();
@@ -114,14 +115,13 @@ public class ResultIterator implements Iterator<Result> {
 					int maxscore = Integer.MIN_VALUE;
 					String winner = null;
 					ArrayList<String> randlist = new ArrayList<>(conti);
-					
-					Collections.sort(randlist, dfcomparator);
+
 					Collections.sort(randlist, freqcomparator);
-					
-					
+					Collections.sort(randlist, dfcomparator);
+
 					for (String s : randlist) {
 
-						Integer score = indexer.getCoocurrentcScore(prev,s);
+						Integer score = indexer.getCoocurrentcScore(prev, s);
 						if (score == null)
 							score = 0;
 
@@ -193,6 +193,11 @@ public class ResultIterator implements Iterator<Result> {
 						cnt++;
 					}
 
+				}
+
+				for (ArrayList<String> l : restwords) {
+					Collections.sort(l, freqcomparator);
+					Collections.sort(l, dfcomparator);
 				}
 
 				for (int i = 0; i < maxsize; i++) {
@@ -279,7 +284,7 @@ public class ResultIterator implements Iterator<Result> {
 						Collections.shuffle(randlist);
 						for (String s : randlist) {
 
-							Integer score = indexer.getCoocurrentcScore(prev,s);
+							Integer score = indexer.getCoocurrentcScore(prev, s);
 							if (score == null)
 								score = 0;
 

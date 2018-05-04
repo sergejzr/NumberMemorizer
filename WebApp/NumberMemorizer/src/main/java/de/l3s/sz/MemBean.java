@@ -30,6 +30,35 @@ public class MemBean implements Serializable {
 	public  void setIndexers(HashMap<String, Indexer> indexers) {
 		MemBean.indexers = indexers;
 	}
+	
+	public String getCurrentmapping()
+	{
+		
+		HashMap<Character, Integer> map = indexers.get(mappername).getMapper();
+		HashMap<Integer, List<Character>> imap=new HashMap<>();
+		for(int i=0;i<10;i++)
+		{
+			imap.put(i, new ArrayList<Character>());
+		}
+		for(Character c: map.keySet())
+		{
+			imap.get(map.get(c)).add(c);
+		}
+		StringBuilder sb=new StringBuilder();
+		
+		for(int i=0;i<10;i++)
+		{
+			sb.append(i);
+			sb.append(":");
+			for(Character c: imap.get(i))
+			{
+				sb.append(c);
+			}
+			if(i<9){sb.append(",");}
+		}
+		return sb.toString();
+
+	}
 String mappername;
 public String getMappername() {
 	return mappername;
