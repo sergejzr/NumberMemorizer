@@ -21,14 +21,34 @@ public class MemorizerDemo {
 
 	public static void main(String[] args) {
 
-		Indexer idx = new Indexer(MEMOMAPPING.RUSSIAN1);
+		Indexer idx = new Indexer(MEMOMAPPING.ENGLISH1);
 
 		File modeldir = new File("models");
-		File model = new File(modeldir, "mapper_standard_libru.ser");
-		loadModelIfExist(idx, model, new File("/home/zerr/russtext/"));
+		File model = new File(modeldir, "mapper_standard_reuters.ser");
+		
+		if (!model.exists()) {
+			try {
+				MemorizerDemo.readReuters(new File("/home/zerr/tweetsdl/reuters/"), idx);
+				idx.save(model);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		} else {
+			try {
+				idx.read(model);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		}
+		idx.filterModel(5, 10);
+		
+		
+		
 
 
-		String num = "5682";
+		String num = "977645445";
 		Iterator<Result> it = idx.result(num, true);
 
 		int top = 10;
@@ -41,18 +61,21 @@ public class MemorizerDemo {
 
 	}
 	
+	;
 	
 	private static void readReuters(File dir, Indexer idx) {
 		for (File f : dir.listFiles()) {
-
+/*
 			if (!f.getName().endsWith("sgm"))
 				continue;
+				*/
 			try {
 				Document doc = Jsoup.parse(f, "UTF-8");
 
 				String s = doc.text();
+				s=s.replaceAll("\\b((https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])", "");
 				// System.out.println(s);
-				Pattern pattern = Pattern.compile("[A–Za–z]+");
+				Pattern pattern = Pattern.compile("[a-zA-Z]+");
 				Matcher matcher = pattern.matcher(s);
 				ArrayList<String> text = new ArrayList<>();
 				while (matcher.find()) {
@@ -100,23 +123,7 @@ public class MemorizerDemo {
 	}
 
 	private static void loadModelIfExist(Indexer idx, File model, File htmlfiledir) {
-		if (!model.exists()) {
-			try {
-				MemorizerDemo.readRussianHtlmTexts(htmlfiledir, idx);
-				idx.save(model);
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(-1);
-			}
-		} else {
-			try {
-				idx.read(model);
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(-1);
-			}
-		}
-		idx.filterModel(4, 3);
+		
 	}
 
 	
