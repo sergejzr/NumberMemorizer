@@ -18,12 +18,11 @@ import de.l3s.sz.memorizer.Result;
 public class MemorizerDemo {
 	
 	
-
 	public static void main(String[] args) {
 
 		Indexer idx = new Indexer(MEMOMAPPING.ENGLISH1);
 
-		File modeldir = new File("models");
+		File modeldir = new File("src/main/resources/de/l3s/sz/memorizer/models");
 		File model = new File(modeldir, "mapper_standard_reuters.ser");
 		
 		if (!model.exists()) {
@@ -42,14 +41,14 @@ public class MemorizerDemo {
 				System.exit(-1);
 			}
 		}
-		idx.filterModel(5, 10);
+	
 		
 		
 		
 
 
 		String num = "977645445";
-		Iterator<Result> it = idx.result(num, true);
+		Iterator<Result> it = idx.result(num, 5,5, true);
 
 		int top = 10;
 		while (it.hasNext()) {

@@ -103,54 +103,17 @@ public class Indexer {
 	 * 
 	 * @param number
 	 *            - the number to be converted to sentence
+	 * @param minfreq 
+	 * @param mindf 
 	 * @param fullinfo
 	 *            - if false, only best matches are returned.
 	 * @return iterator with results of this conversion
 	 */
-	public Iterator<Result> result(String number, boolean fullinfo) {
-		return new ResultIterator(this, number, new BreakString(), fullinfo);
+	public Iterator<Result> result(String number, int mindf, int minfreq, boolean fullinfo) {
+		return new ResultIterator(this, number, new BreakString(),  mindf,  minfreq,fullinfo);
 	}
 
-	/**
-	 * Remove garbage from model corpora.
-	 * 
-	 * @param mindfscore
-	 *            - words with document frequency less than that will be removed
-	 *            from the index.
-	 * @param minfrequency
-	 *            - words with frequency less than that will be removed from the
-	 *            index.
-	 */
-	public void filterModel(int mindfscore, int minfrequency) {
-		int allcnt = 0;
-		int reducecnt = 0;
-		for (String s : hashIndex.keySet()) {
-			HashSet<String> conti = hashIndex.get(s);
 
-			HashSet<String> copyconti = new HashSet<>(conti);
-
-			for (String sn : copyconti) {
-				allcnt++;
-				if (df.get(sn) < mindfscore || freq.get(sn) < minfrequency) {
-					conti.remove(sn);
-				} else {
-					reducecnt++;
-				}
-
-			}
-
-		}
-		HashSet<String> allnums = new HashSet<>(hashIndex.keySet());
-
-		for (String num : allnums) {
-			if (hashIndex.get(num).size() == 0) {
-				hashIndex.remove(num);
-			}
-		}
-
-		System.out.println("Fullindes: " + allcnt);
-		System.out.println("Smallindex: " + reducecnt);
-	}
 
 	/**
 	 * Read text corpora model from a file
@@ -276,7 +239,7 @@ public class Indexer {
 	 * @param string2
 	 * @return
 	 */
-	public Integer getCoocurrentcScore(String string1, String string2) {
+	public Integer getCoocurrentsScore(String string1, String string2) {
 		String key = makekey(string1, string2);
 		return cooccurence.get(key);
 	}

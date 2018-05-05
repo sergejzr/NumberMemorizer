@@ -18,13 +18,17 @@ public class ResultIterator implements Iterator<Result> {
 	private boolean fullinfo;
 	private MyComparator dfcomparator;
 	private MyComparator freqcomparator;
+	private int mindf;
+	private int minfreq;
 
-	public ResultIterator(Indexer indexer, String numstr, BreakString bs, boolean fullinfo) {
+	public ResultIterator(Indexer indexer, String numstr, BreakString bs, int mindf, int minfreq, boolean fullinfo) {
 		super();
 		this.indexer = indexer;
 		this.numstr = numstr;
 		this.bs = bs;
 		this.fullinfo = fullinfo;
+		this.mindf=mindf;
+		this.minfreq=minfreq;
 
 		dfcomparator = new MyComparator(indexer.df);
 		freqcomparator = new MyComparator(indexer.freq);
@@ -32,8 +36,8 @@ public class ResultIterator implements Iterator<Result> {
 		init();
 	}
 
-	public ResultIterator(Indexer indexer, String numstr, BreakString bs) {
-		this(indexer, numstr, bs, true);
+	public ResultIterator(Indexer indexer, String numstr, BreakString bs, int mindf, int minfreq) {
+		this(indexer, numstr, bs, mindf,  minfreq,true);
 	}
 
 	int posindex = 0;
@@ -68,6 +72,7 @@ public class ResultIterator implements Iterator<Result> {
 		return true;
 	}
 
+public 	static HashSet<String> removed=new HashSet<>();
 	private void loadbatch() {
 
 		List<Result> ret = new ArrayList<>();
@@ -80,8 +85,24 @@ public class ResultIterator implements Iterator<Result> {
 
 			for (String s : possibility) {
 				HashSet<String> stack = new HashSet<>();
-				HashSet<String> alternatives = indexer.getStringFromNumber(s);
-				if (alternatives == null || alternatives.size() == 0)
+				HashSet<String> tmp=indexer.getStringFromNumber(s);
+				
+				if (tmp == null || tmp.size() == 0)
+					continue nextpossibility;
+				
+				HashSet<String> alternatives = new HashSet<>(tmp);
+				
+				tmp=new HashSet<>(alternatives);
+				
+				for(String st:tmp)
+				{
+					if(indexer.df.get(st)<mindf ||indexer.freq.get(st)<minfreq)
+					{
+						alternatives.remove(st);
+						removed.add(st);
+					}
+				}
+				if (alternatives.size() == 0)
 					continue nextpossibility;
 				stack.addAll(alternatives);
 				table.add(stack);
@@ -121,7 +142,7 @@ public class ResultIterator implements Iterator<Result> {
 
 					for (String s : randlist) {
 
-						Integer score = indexer.getCoocurrentcScore(prev, s);
+						Integer score = indexer.getCoocurrentsScore(prev, s);
 						if (score == null)
 							score = 0;
 
@@ -228,136 +249,6 @@ public class ResultIterator implements Iterator<Result> {
 		batchindex = 0;
 	}
 
-	private void loadbatchF() {
-
-		List<Result> ret = new ArrayList<>();
-
-		nextpossibility: for (; posindex < possibilities.size(); posindex++) {
-			List<String> possibility = possibilities.get(posindex);
-
-			ArrayList<HashSet<String>> table = new ArrayList<>();
-			ArrayList<HashSet<String>> used = new ArrayList<>();
-
-			for (String s : possibility) {
-				HashSet<String> stack = new HashSet<>();
-				HashSet<String> alternatives = indexer.getStringFromNumber(s);
-				if (alternatives == null || alternatives.size() == 0)
-					continue nextpossibility;
-				stack.addAll(alternatives);
-				table.add(stack);
-
-				HashSet<String> stack2 = new HashSet<>();
-				stack2.addAll(stack);
-				used.add(stack2);
-			}
-
-			while (!allEmpty(used)) {
-				int max = 0;
-				int maxsize = Integer.MIN_VALUE;
-
-				for (int i = 0; i < used.size(); i++) {
-					if (used.get(i).size() > maxsize) {
-						maxsize = used.get(i).size();
-						max = i;
-					}
-				}
-
-				int connectivity = 0;
-				HashSet<String> start = used.get(max);
-				ArrayList<String> words = new ArrayList<>(start);
-
-				for (String curstr : words) {
-					ArrayList<String> prefix = new ArrayList<>();
-					ArrayList<String> postfix = new ArrayList<>();
-
-					String prev = curstr;
-
-					for (int i = max + 1; i < used.size(); i++) {
-						HashSet<String> conti = used.get(i);
-						if (conti.size() == 0) {
-							conti = table.get(i);
-						}
-
-						int maxscore = Integer.MIN_VALUE;
-						String winner = null;
-						ArrayList<String> randlist = new ArrayList<>(conti);
-						Collections.shuffle(randlist);
-						for (String s : randlist) {
-
-							Integer score = indexer.getCoocurrentcScore(prev, s);
-							if (score == null)
-								score = 0;
-
-							if (score > maxscore) {
-								maxscore = score;
-								winner = s;
-							}
-						}
-						connectivity += maxscore;
-						used.get(i).remove(winner);
-						postfix.add(winner);
-						prev = winner;
-
-					}
-
-					prev = curstr;
-					for (int i = max - 1; i >= 0; i--) {
-						HashSet<String> conti = used.get(i);
-						if (conti.size() == 0) {
-							conti = table.get(i);
-						}
-
-						int maxscore = Integer.MIN_VALUE;
-						String winner = null;
-
-						ArrayList<String> randlist = new ArrayList<>(conti);
-						Collections.shuffle(randlist);
-						for (String s : randlist) {
-							Integer score = indexer.getCoocurrentcScore(s, prev);
-
-							if (score == null)
-								score = 0;
-							if (score > maxscore) {
-								maxscore = score;
-								winner = s;
-							}
-						}
-						if (winner == null) {
-							int ol = 0;
-							ol++;
-						}
-						connectivity += maxscore;
-						used.get(i).remove(winner);
-						prefix.add(winner);
-						prev = winner;
-
-					}
-
-					StringBuilder sb = new StringBuilder();
-
-					Collections.reverse(prefix);
-					for (String s : prefix) {
-						sb.append(s);
-						sb.append(" ");
-					}
-					sb.append(curstr);
-					sb.append(" ");
-					for (String s : postfix) {
-						sb.append(s);
-						sb.append(" ");
-					}
-
-					ret.add(new Result(connectivity, possibility.toString(), sb.toString().trim()));
-
-				}
-
-			}
-			break;
-		}
-
-		curbatch = ret;
-		batchindex = 0;
-	}
 
 	boolean asked = false;
 	Result r = null;
@@ -381,13 +272,15 @@ public class ResultIterator implements Iterator<Result> {
 
 			r = curbatch.get(batchindex);
 		} else {
+			posindex++;
 			if (posindex < possibilities.size()) {
 				loadbatch();
 			}
-			posindex++;
+			
 			if (posindex > possibilities.size()) {
 				return null;
 			}
+			batchindex=0;
 			return loadNext();
 		}
 		batchindex++;

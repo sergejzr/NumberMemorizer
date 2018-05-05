@@ -33,6 +33,7 @@ public class MemBean implements Serializable {
 	
 	public String getCurrentmapping()
 	{
+		if(mappername==null){mappername="English (Reuters Corpora)";}
 		
 		HashMap<Character, Integer> map = indexers.get(mappername).getMapper();
 		HashMap<Integer, List<Character>> imap=new HashMap<>();
@@ -158,11 +159,10 @@ public void setMappername(String mappername) {
 				e.printStackTrace();
 			}
 		}
-		idx.filterModel(mindf, minfreq);
 		
 		results.clear();
 		int cnt = 0;
-		Iterator<Result> it = idx.result(number, false);
+		Iterator<Result> it = idx.result(number, mindf, minfreq,false);
 		while (it.hasNext()) {
 			results.add(it.next());
 			cnt++;
