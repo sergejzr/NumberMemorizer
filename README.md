@@ -1,9 +1,12 @@
 # NumberMemorizer
 Converts numbers into unique words/sentences and helps this way to memorize long numbers (Mnemonic Major System or Consonant System).
 
+
 There are a few recommended approaches ho to memorize large numbers (checkout links [1,2,3]). These algorithms helps to use so called "Mnemonic Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
 
 For example, the number 81459161 turnes to ""federal budget". Much easier to memorize, isn't it?
+
+Before start with the lib, you might want to use a web demo: http://godzilla.kbs.uni-hannover.de:9111/NumberMemorizer/index.jsf
 
 Simple usage of the given library, first init the mapper (running demo is in de.l3s.sz.main.MemorizerDemo):
 
