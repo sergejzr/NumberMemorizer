@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
@@ -167,7 +168,7 @@ public class Indexer {
 		return s1 + "_" + s2;
 		// return s2 + "_" + s1;
 	}
-
+Hashtable<String, HashSet<String>> universalIndex=new Hashtable<>();
 	public void addText(List<String> document) {
 
 		HashSet<String> bag = new HashSet<>(document);
@@ -193,6 +194,11 @@ public class Indexer {
 				hashIndex.put(num, conti = new HashSet<String>());
 			}
 			conti.add(w);
+			
+			
+			
+		
+			
 
 			Integer cnt = freq.get(w);
 			if (cnt == null) {
