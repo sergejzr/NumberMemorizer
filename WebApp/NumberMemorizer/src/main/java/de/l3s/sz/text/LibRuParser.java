@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Document;
 
-public class LibRuParser extends ParagraphParser{
+public class LibRuParser extends DocumentParser{
 
 	@Override
 	public List<List<List<String>>> parseDocument(Document jsdoc) {
@@ -16,7 +16,7 @@ public class LibRuParser extends ParagraphParser{
 		List<List<List<String>>> ret=new ArrayList<>();
 		List<List<String>> doc=new ArrayList<>();
 		ret.add(doc);
-		for(String s:text.split("[\\.\\!\\?]"))
+		for(String s:text.split("[\\.\\!\\?\\;\\:]"))
 		{
 			
 			// System.out.println(s);

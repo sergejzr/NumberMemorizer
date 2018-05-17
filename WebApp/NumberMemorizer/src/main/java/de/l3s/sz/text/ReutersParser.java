@@ -11,14 +11,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ReutersParser extends ParagraphParser {
+public class ReutersParser extends DocumentParser {
 
 	@Override
 	public List<List<List<String>>> parseDocument(Document doc) {
 
 		ArrayList<List<List<String>>> ret = new ArrayList<>();
 
-		Elements docs = doc.getElementsByTag("REUTERS");
+		Elements docs = doc.getElementsByTag("TEXT");
 
 		for (Element e : docs) {
 

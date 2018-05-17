@@ -1,5 +1,6 @@
 package de.l3s.sz.text;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,7 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class Twitter1Parser extends ParagraphParser {
+public class Twitter1Parser extends DocumentParser {
 
 	@Override
 	public List<List<List<String>>> parseDocument(Document doc) {
@@ -19,18 +20,17 @@ public class Twitter1Parser extends ParagraphParser {
 		ArrayList<List<List<String>>> ret = new ArrayList<>();
 
 		String tweets = doc.text().toLowerCase();
+		
+		String[] arr = tweets.split("\\d{5,}?\\|.+?\\|");
 
-		for (String text : tweets.split("[\\n\\r]+")) {
+		for (String text : arr) {
 
 			ArrayList<List<String>> cleandoc = new ArrayList<>();
 
 			ret.add(cleandoc);
 
-			String[] parts = text.split("|");
-
-			String s = parts[2];
-
-			s = s.replaceAll("\\b((https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])", " ");
+		
+			String s = text.replaceAll("\\b((https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])", " ");
 
 			// System.out.println(s);
 			Pattern pattern = Pattern.compile("[a-zA-Z]+");

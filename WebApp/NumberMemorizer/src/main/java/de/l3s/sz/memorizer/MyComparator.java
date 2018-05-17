@@ -1,9 +1,10 @@
 package de.l3s.sz.memorizer;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class MyComparator implements Comparator <String>{
+public class MyComparator implements Comparator <String>, Serializable{
 
 	private HashMap<String, ? extends Number> scores;
 
