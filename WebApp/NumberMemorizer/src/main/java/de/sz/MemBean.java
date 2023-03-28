@@ -1,32 +1,20 @@
 package de.sz;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 import de.l3s.sz.text.AnnotatedtextCorpora;
-import de.l3s.sz.text.DocumentParser;
-import de.l3s.sz.text.LibRuParser;
-import de.l3s.sz.text.ReutersParser;
-import de.l3s.sz.text.Twitter1Parser;
 import de.sz.memorizer.Indexer;
 import de.sz.memorizer.MEMOMAPPING;
 import de.sz.memorizer.Result;
 
-@ManagedBean(name = "mem", eager = true)
-@ViewScoped
+
 public class MemBean implements Serializable {
 
 	/**
