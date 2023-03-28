@@ -9,7 +9,7 @@ For example, the number 81459161 turnes to "federal budget". Much easier to memo
 
 You will find a demo jar file in the "release" folder. Simple usage of the given library.
 
-start with: java -jar NumberMemorizer-0.0.1.jar 81459161
+start with: java -jar NumberMemorizer-0.0.1.jar 81456191
    
    
  * We can not build and evaluate all possible combination of possible words in the lists. We instead get most promising combinations first and print other possibilities with -- as word placeholders. Example:
