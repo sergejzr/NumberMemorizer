@@ -1,43 +1,24 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>1.0.0</modelVersion>
-	<groupId>sz.uk.soton.core</groupId>
-	<artifactId>WebTickGame</artifactId>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.l3s.sz.memorizer</groupId>
+	<artifactId>NUmberMemorizer</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>WebTickGame Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-	<repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>Prime Repo</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-		
-		    <repository>
-        <id>sergejzer github lib</id>
-        <url>https://raw.github.com/sergejzr/lib/mvn-repo/</url>
-        <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-        </snapshots>
-    </repository>
-    
-	</repositories>
-	
-
-
 
 	<dependencies>
-	
+
 		<!-- PrimeFaces -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 		</dependency>
-		
+
 		<!-- JSF -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -62,27 +43,28 @@
 			<version>2.5</version>
 		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.atmosphere/atmosphere-runtime-native -->
-<dependency>
-    <groupId>org.atmosphere</groupId>
-    <artifactId>atmosphere-runtime-native</artifactId>
-    <version>2.4.5</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.atmosphere/atmosphere-cdi -->
-<dependency>
-    <groupId>org.atmosphere</groupId>
-    <artifactId>atmosphere-cdi</artifactId>
-    <version>2.4.2</version>
-</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.atmosphere/atmosphere-runtime-native -->
+		<dependency>
+			<groupId>org.atmosphere</groupId>
+			<artifactId>atmosphere-runtime-native</artifactId>
+			<version>2.4.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.atmosphere/atmosphere-cdi -->
+		<dependency>
+			<groupId>org.atmosphere</groupId>
+			<artifactId>atmosphere-cdi</artifactId>
+			<version>2.4.2</version>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
-<dependency>
-    <groupId>javax.enterprise</groupId>
-    <artifactId>cdi-api</artifactId>
-    <version>1.2</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-		
+
 		<!-- EL -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
@@ -100,32 +82,32 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 		</dependency>
-<dependency>
-    <groupId>log4j</groupId>
-    <artifactId>log4j</artifactId>
-    <version>1.2.15</version>
-    <exclusions>
-    <exclusion>
-        <groupId>com.sun.jmx</groupId>
-        <artifactId>jmxri</artifactId>
-    </exclusion>
-    <exclusion>
-        <groupId>com.sun.jdmk</groupId>
-        <artifactId>jmxtools</artifactId>
-    </exclusion>
-    <exclusion>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
-    </exclusion>
-</exclusions>
-</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-<dependency>
-    <groupId>commons-codec</groupId>
-    <artifactId>commons-codec</artifactId>
-    <version>1.4</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 
 		<dependency>
@@ -163,17 +145,67 @@
 			<artifactId>lucene-analyzers</artifactId>
 			<version>3.6.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
 	</dependencies>
 	<build>
+		<finalName>NumberMemorizer</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.8.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<release>11</release>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>de.sz.memorizer.main.Main</mainClass>
+						</manifest>
+
+						<manifestEntries>
+							<Multi-Release>true</Multi-Release>
+						</manifestEntries>
+
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

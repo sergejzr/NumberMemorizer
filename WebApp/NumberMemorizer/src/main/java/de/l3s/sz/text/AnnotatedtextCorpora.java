@@ -125,6 +125,76 @@ public	Integer sequenceScore(String str1, String str2) {
 	 * 
 	 * @param paragraphs
 	 */
+	public void addTextList(List<String> paragraphs) {
+		cntdocs++;
+		HashSet<String> bagofwords = new HashSet<>();
+
+			for (String word : paragraphs) {
+				Integer cnt = tf.get(word);
+				if (cnt == null) {
+					cnt = 0;
+				}
+				tf.put(word, cnt + 1);
+				bagofwords.add(word);
+				setDouble(word, word, sequence, 5);
+			}
+		
+
+		for (String word : bagofwords) {
+			Integer cnt = df.get(word);
+			if (cnt == null)
+				cnt = 0;
+			df.put(word, 5);
+
+			StringBuilder collect = new StringBuilder();
+
+			int maxcntseqconsonants = 0;
+			int cntseqconsonants = 0;
+
+			int maxcntseqvocals = 0;
+			int cntseqvocalss = 0;
+
+			for (Character c : word.toCharArray()) {
+
+				if (!consonants.contains(c)) {
+					if (cntseqconsonants > maxcntseqconsonants) {
+						maxcntseqconsonants = 0;
+					}
+					cntseqconsonants = 0;
+					cntseqvocalss++;
+					continue;
+				} else {
+					if (cntseqvocalss > maxcntseqvocals) {
+						maxcntseqvocals = cntseqvocalss;
+					}
+					cntseqvocalss = 0;
+					cntseqconsonants++;
+				}
+
+				collect.append(c);
+			}
+
+			if (maxcntseqconsonants > 4 || maxcntseqvocals > 4) {
+				continue;
+			}
+			String consonantkey = collect.toString();
+			if (consonantkey.length() < 2)
+				continue;
+			HashSet<String> conti = index.get(consonantkey);
+			if (conti == null) {
+				index.put(consonantkey, conti = new HashSet<>());
+			}
+			conti.add(word);
+			dict.add(word);
+		}
+	}
+	
+	
+	/**
+	 * Expect a list of paragraphs,
+	 * 
+	 * @param paragraphs
+	 */
 	public void addTextDocument(List<List<String>> paragraphs) {
 		cntdocs++;
 		HashSet<String> bagofwords = new HashSet<>();
