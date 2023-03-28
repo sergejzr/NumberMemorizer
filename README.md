@@ -4,37 +4,17 @@ Converts numbers into unique words/sentences and helps this way to memorize long
 
 There are a few recommended approaches ho to memorize large numbers (checkout links [1,2,3]). These algorithms helps to use so called "Mnemonic Major System" or "Consonant System". The idea - (1) assign consonants to each digit (2) convert a number to consonat sequence and (3) try to add vocals such as a sequence of consonant becomes a sequence of words. 
 
-For example, the number 81459161 turnes to ""federal budget". Much easier to memorize, isn't it?
+For example, the number 81459161 turnes to "federal budget". Much easier to memorize, isn't it?
 
-Before start with the lib, you might want to use a web demo: http://godzilla.kbs.uni-hannover.de:9111/NumberMemorizer/index.jsf
 
-Simple usage of the given library, first init the mapper (running demo is in de.l3s.sz.main.MemorizerDemo):
+You will find a demo jar file in the "release" folder. Simple usage of the given library.
 
-    //create an indexer using specific number - letter mapping as follows
-    Indexer idx=new Indexer("0:zsc,1:dt,2:n,3:m,4:r,5:l,6:jg,7:kq,8:fv,9:bp");
-
-    //fill indexer with text
-    for(String text:texts)
-    idx.add(text);
-
-    //save model, if nesseccery for further use
-    idx.save(new File("mymodel.ser"));
-
-Than iterate over possible word combinations*
-
-    String num = "81459161";
-    Iterator<Result> it = idx.result(num, true);
-		
-		while(it.hasNext())
-		{
-			Result r = it.next();
-			System.out.println(r.getScore()+"\t"+r.getSplit()+"\t"+r.getSentence());
-		}
-
- * We can not build and evaluate all possible combination of possible words in the lists. In the full mode (idx.result(num, true)) we instead get most promising combinations first and print othe rpossibilities with -- as word placeholders. Example:
+start with: java -jar NumberMemorizer-0.0.1.jar 8145961
+   
+   
+ * We can not build and evaluate all possible combination of possible words in the lists. We instead get most promising combinations first and print other possibilities with -- as word placeholders. Example:
 	
-		//
-    	idx.result("81459161", true);
+
     	//higly scored results first
     	90.0	[8145, 9161]	federal budget
     	90.0	[8145, 9161]	federal budget
